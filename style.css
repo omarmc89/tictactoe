@@ -110,6 +110,34 @@ footer {
     visibility: hidden;
 }
 
+#mode {
+    font-family: 'Bungee Spice';
+    font-size: 30px;
+    text-align: center;
+}
+
+#changeMode {
+    background-color:#fba542;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 3px;
+    color:white;
+    height: 30px;
+    border:none;
+    padding: 0 5px;
+    margin-bottom: 15px;
+    box-shadow: 5px 5px 5px rgb(56, 56, 56);
+    border-top: 2px solid #fccd97;
+    border-left: 2px solid #fccd97;
+}
+
+#changeMode:hover{
+    box-shadow: 2px 2px 2px rgb(56, 56, 56);
+    transform: scale(0.95);
+    border-top: none;
+    border-left: none;
+}
+
 .gameMode,
 .gameModeDisplay {
     height: 50%
@@ -156,8 +184,23 @@ footer {
     border-left: 3px solid #de556f;
 }
 
+.gameStatus {
+    color:#623c89;
+    font-size: 25px;
+    margin-top: 10px;
+    text-transform: uppercase;
+}
+
 .gameStart:hover,
 .gameRestart:hover {
+    box-shadow: 2px 2px 2px;
+    transform: scale(0.95);
+    border-top: none;
+    border-left: none;
+}
+
+.gameRestart:disabled {
+    opacity: 0.5;
     box-shadow: 2px 2px 2px;
     transform: scale(0.95);
     border-top: none;

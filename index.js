@@ -10,6 +10,7 @@ let player2Moves = 0
 let player1Name = ""
 let player2Name = ""
 let playerName = ""
+let gameStarted = false;
 const statusDisplay = document.querySelector('.gameStatus')
 const changeModeButton = document.getElementById('changeMode')
 const playerNameInput = document.querySelector('#playerName')
@@ -38,12 +39,15 @@ mode.innerHTML = multiplayer ? 'Multiplayer' : 'Singleplayer'
 const startButton = document.querySelector('.gameStart')
 startButton.addEventListener('click', () => {  
     if (playersNameCheck()){
-        console.log('correcto')
-        assignPlayerNames()
-        statusDisplay.innerHTML = currentPlayerTurn()
-        statusDisplay.classList.remove('hide')
-        document.querySelector('.board').classList.remove('no-click')
-
+        if(!gameStarted) {
+            assignPlayerNames()
+            statusDisplay.innerHTML = currentPlayerTurn()
+            statusDisplay.classList.remove('hide')
+            document.querySelector('.board').classList.remove('no-click')
+            gameStarted = true
+        }else{
+            console.log('juego ya iniciado')
+        }
     } else {
         statusDisplay.innerHTML = "Deben insertarse los nombres de los jugadores"
         statusDisplay.classList.remove('hide')
@@ -58,10 +62,16 @@ function restartGame() {
     currentPlayer = "X"
     gameState.fill("")
     statusDisplay.innerHTML = currentPlayerTurn()
+    event.target.setAttribute('disabled', true)
     document.querySelectorAll('.cell')
         .forEach(cell => {cell.innerHTML = ""})
     if (totalGames === 4) {
+        statusDisplay.classList.remove('hide')
         statusDisplay.innerHTML = "Ya se han jugado todas las partidas"
+        document.querySelector('.gameRestart').innerText = "Recargar"
+        document.querySelector('.gameStart').classList.add('hide')
+        document.querySelector('.gameRestart').addEventListener('click', () => window.location.reload())
+        
     }
 
 }
@@ -189,6 +199,7 @@ async function resultValidation() {
     if (win) {
         statusDisplay.innerHTML = winningMessage()
         gameActive = false
+        document.querySelector('.gameRestart').removeAttribute('disabled')
         console.log(totalGames, player1Moves, player2Moves,playerMoves, cpuMoves)
         return
     }
@@ -197,6 +208,7 @@ async function resultValidation() {
     if (gameDraw) {
         statusDisplay.innerHTML = drawMessage()
         gameActive = false
+        document.querySelector('.gameRestart').removeAttribute('disabled')
         console.log(totalGames, player1Moves, player2Moves,playerMoves, cpuMoves)
         return
     }
