@@ -1,0 +1,170 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Spice&family=Rubik:wght@300;400;500;600;700&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Rubik'
+}
+
+body{
+    min-width: 100vw;
+    height: 100vh;
+}
+article {
+    text-align: center;
+}
+
+header,
+footer {
+    height: 10%;
+    width: 100vw;
+    text-align: center;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.no-click {
+    pointer-events: none;
+}
+
+.gameDisplay {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 50%;
+    position: relative;
+}
+.players {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 20%;
+}
+
+.gameModeDisplay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.singleplayer,
+.multiplayer {
+    position: absolute;
+    top:20%; 
+    display:flex;
+    text-align: center;
+    margin: 10px 0;
+    font-size: 20px;
+    background-color: #623c89;
+    color: white;
+    border-radius: 10px;
+    width: fit-content;
+    padding: 5px;
+    text-align: center;
+
+}
+.singleplayer input, 
+.multiplayer input {
+    font-size: 20px;
+    background-color: transparent;
+    border:none;
+    color: orange;
+    font-weight: bold;
+    text-align: center;
+    transition: all 0.5 ease-in-out;
+    height: 30px;
+}
+
+.singleplayer label, 
+.multiplayer label {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 5px;
+}
+
+.singleplayer input:hover,
+.singleplayer input:focus,
+.singleplayer input:active,
+.multiplayer input:hover,
+.multiplayer input:focus,
+.multiplayer input:active {
+    outline:none;
+    border-bottom: 2px solid white;
+    text-align: center;
+    font-size: 22px;
+}
+
+.title {
+    font-family: 'Bungee Spice';
+    font-size: 65px;
+    text-align: center;
+}
+
+.hide {
+    visibility: hidden;
+}
+
+.gameMode,
+.gameModeDisplay {
+    height: 50%
+}
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    width: 306px;
+    justify-content: center;
+
+}
+.cell {
+    width: 125px;
+    height: 125px;
+    box-shadow: 0 0 0 1px #333333;
+    border: 1px solid #333333;
+    line-height: 100px;
+    font-size: 60px;
+    color: black;
+}
+
+.buttons {
+    height: 10%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.gameStart,
+.gameRestart {
+    width: 70px;
+    height: 70px;
+    font-size: 15px;
+    color: #332929;
+    text-shadow: 1px 1px 1px #aaa5a5;
+    background-color: #c6011b;
+    border-radius:50%;
+    border: none;
+    box-shadow: 5px 5px 5px;
+    margin: 0 20px;
+    border-top: 4px solid #de556f;
+    border-left: 3px solid #de556f;
+}
+
+.gameStart:hover,
+.gameRestart:hover {
+    box-shadow: 2px 2px 2px;
+    transform: scale(0.95);
+    border-top: none;
+    border-left: none;
+}
+.footer {
+    background-color: 	#fba542;
+    color: white;
+    font-size: 15px;
+}
