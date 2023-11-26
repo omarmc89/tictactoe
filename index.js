@@ -64,16 +64,17 @@ function restartGame() {
     statusDisplay.innerHTML = currentPlayerTurn()
     event.target.setAttribute('disabled', true)
     document.querySelectorAll('.cell')
-        .forEach(cell => {cell.innerHTML = ""})
+        .forEach(cell => {
+            cell.innerHTML = ""
+            cell.classList.remove('no-click')
+        })
     if (totalGames === 4) {
         statusDisplay.classList.remove('hide')
         statusDisplay.innerHTML = "Ya se han jugado todas las partidas"
         document.querySelector('.gameRestart').innerText = "Recargar"
         document.querySelector('.gameStart').classList.add('hide')
-        document.querySelector('.gameRestart').addEventListener('click', () => window.location.reload())
-        
+        document.querySelector('.gameRestart').addEventListener('click', () => window.location.reload())  
     }
-
 }
 
 // CHANGE BUTTON HANDLING
@@ -101,6 +102,7 @@ function handleCellPlayed(clickedCell, clickedCellIndex) {
 
     gameState[clickedCellIndex] = currentPlayer;
     clickedCell.innerHTML = currentPlayer
+    clickedCell.classList.add('no-click')
     resultValidation()
 }
 
@@ -137,7 +139,6 @@ function currentPlayerTurn () {
         playerTurn = (currentPlayer === "X") ? playerName : 'CPU'
     }
     return `${currentPlayer} - ${playerTurn} turn`
-
 }
 
 function playerChange() {
@@ -176,7 +177,6 @@ function winningMessage() {
         winnerName = (currentPlayer === "X") ? player1Name : (currentPlayer === "O") ? player2Name : playerName;
     }
     return `${currentPlayer} - ${winnerName} wins`;
-
 }
 
 // VALIDATION FOR EVERY MOVE
@@ -236,7 +236,6 @@ async function resultValidation() {
         console.log(totalGames, player1Moves, player2Moves,playerMoves, cpuMoves)
         return
     }
-
     playerChange()
 }
 
