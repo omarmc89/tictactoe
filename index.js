@@ -176,6 +176,7 @@ function winningMessage() {
         winnerName = (currentPlayer === "X") ? player1Name : (currentPlayer === "O") ? player2Name : playerName;
     }
     return `${currentPlayer} - ${winnerName} wins`;
+
 }
 
 // VALIDATION FOR EVERY MOVE
@@ -197,9 +198,32 @@ async function resultValidation() {
     }
 
     if (win) {
+        let winnerName;
+        let score;
+        if (multiplayer) {
+            if (currentPlayer === "X") {
+                winnerName = player1Name;
+                score = player1Moves
+            } else {
+                winnerName = player2Name;
+                score = player1Moves
+            }
+        } else {
+            if (currentPlayer === "X") {
+                winnerName = playerName;
+                score = playerMoves
+            } else {
+                winnerName = 'CPU';
+            }
+        }
+        if (winnerName !=="CPU"){
+            addPlayerScore (winnerName, score)
+        }
+
         statusDisplay.innerHTML = winningMessage()
         gameActive = false
         document.querySelector('.gameRestart').removeAttribute('disabled')
+        
         console.log(totalGames, player1Moves, player2Moves,playerMoves, cpuMoves)
         return
     }
@@ -232,5 +256,44 @@ function cpu () {
     } else {
         cellSelected = document.getElementById(randomCell)
         handleCellPlayed(cellSelected, randomCell)
+    }
+}
+
+
+async function addPlayerScore (player, score) {
+    const headers = {"Content-Type": "application/json"}
+    const res = await fetch(`http://localhost:3000/players?name=${player}`)
+    const playerData = await res.json()
+
+    if(Object.keys(playerData).length == 0) {
+        const dataToInsert = {
+            "name": player,
+            "partidasGanadas": [
+                {
+                    "totalMovimientos": score
+                }
+            ]}
+        console.log(JSON.stringify(dataToInsert));
+        const response = await fetch(`http://localhost:3000/players`,{method:"POST", headers: headers, body: JSON.stringify(dataToInsert)})
+        console.log(response);
+        await console.log(response)
+    } else {
+        const id = playerData[0].id
+        const playerWins = playerData[0].partidasGanadas
+        const nextGameId = playerWins.length > 0 ? playerWins.length + 1 : 1;
+        // playerWins.push({ "totalMovimientos": score })
+        const dataToUpdate = {
+            "name": player,
+            "partidasGanadas": [...playerWins, {"idPartida": nextGameId, "totalMovimientos": score}]
+        }
+        const options = {
+            method: "PUT",
+            headers : {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(dataToUpdate)
+    }
+        const response = await fetch(`http://localhost:3000/players/${id}`, options)
+        await console.log(response)
     }
 }
